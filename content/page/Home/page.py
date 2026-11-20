@@ -39,23 +39,26 @@ class WeatherStat(MDBoxLayout):
     value = StringProperty()
     caption = StringProperty()
 
-
 class ModalCreateProfile(ModalView):
 
     auto_dismiss = False
     _date_picker = None
+    _date_touch = None
 
-    # ------------------------------------------------------------------
-    # Date picker tanggal lahir
-    # ------------------------------------------------------------------
+    def date_touch_down(self, field, touch):
+        self._date_touch = touch.uid if field.collide_point(*touch.pos) else None
+
+    def date_touch_up(self, field, touch):
+        if self._date_touch == touch.uid and field.collide_point(*touch.pos):
+            self._date_touch = None
+            self.open_date_picker()
+
     def open_date_picker(self):
         field = self.ids.tanggal
-        field.focus = False  # supaya field bisa diketuk lagi nanti
 
         if self._date_picker and self._date_picker.parent:
             return
 
-        # Mulai dari tanggal yang sudah dipilih, atau default 01/01/2000
         try:
             d = datetime.strptime(field.text, "%d/%m/%Y").date()
         except (ValueError, TypeError):
@@ -65,7 +68,7 @@ class ModalCreateProfile(ModalView):
             year=d.year,
             month=d.month,
             day=d.day,
-            max_date=date.today(),  # tidak boleh pilih tanggal masa depan
+            max_date=date.today(),
         )
         picker.bind(
             on_ok=self._on_date_ok,
@@ -81,9 +84,6 @@ class ModalCreateProfile(ModalView):
             self.ids.tanggal.error = False
         picker.dismiss()
 
-    # ------------------------------------------------------------------
-    # Simpan
-    # ------------------------------------------------------------------
     def save(self):
         nama = self.ids.nama.text.strip()
         tanggal = self.ids.tanggal.text.strip()

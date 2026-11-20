@@ -20,38 +20,152 @@ Traceback (most recent call last):
   File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\base.py", line 334, in dispatch_input
     post_dispatch_input(*pop(0))
     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^
-  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\base.py", line 302, in post_dispatch_input
-    wid.dispatch('on_touch_up', me)
-    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\base.py", line 263, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
   File "kivy\\_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
-  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivymd\uix\behaviors\ripple_behavior.py", line 476, in on_touch_up
-    return super().on_touch_up(touch)
-           ~~~~~~~~~~~~~~~~~~~^^^^^^^
-  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\uix\behaviors\button.py", line 179, in on_touch_up
-    self.dispatch('on_release')
-    ~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\core\window\__init__.py", line 1709, in on_motion
+    self.dispatch('on_touch_down', me)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
   File "kivy\\_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
-  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivymd\uix\navigationbar\navigationbar.py", line 662, in on_release
-    self.parent.set_active_item(self)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
-  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivymd\uix\navigationbar\navigationbar.py", line 727, in set_active_item
-    self.dispatch(
-    ~~~~~~~~~~~~~^
-        "on_switch_tabs",
-        ^^^^^^^^^^^^^^^^^
-    ...<10 lines>...
-        ),
-        ^^
-    )
-    ^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\core\window\__init__.py", line 1726, in on_touch_down
+    if w.dispatch('on_touch_down', touch):
+       ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "kivy\\_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\uix\modalview.py", line 266, in on_touch_down
+    super().on_touch_down(touch)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\uix\widget.py", line 589, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "kivy\\_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\uix\widget.py", line 589, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
   File "kivy\\_event.pyx", line 727, in kivy._event.EventDispatcher.dispatch
   File "kivy\\_event.pyx", line 1307, in kivy._event.EventObservers.dispatch
   File "kivy\\_event.pyx", line 1191, in kivy._event.EventObservers._dispatch
   File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\lang\builder.py", line 60, in custom_callback
     exec(__kvlang__.co_value, idmap)
     ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\content\page\Manager\page.kv", line 28, in <module>
-    on_switch_tabs: root.open_tab(args[3])
-    ^^^^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\content\page\Home\page.kv", line 126, in <module>
+    on_touch_down: root.date_touch_down(self, args[1])
+    ^^^^^^^^
   File "kivy\\weakproxy.pyx", line 32, in kivy.weakproxy.WeakProxy.__getattr__
-AttributeError: 'Manager' object has no attribute 'open_tab'
+AttributeError: 'ModalCreateProfile' object has no attribute 'date_touch_down'. Did you mean: 'on_touch_down'?
+
+
+[Layar error juga gagal]
+Traceback (most recent call last):
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\main.py", line 141, in <module>
+    _start()
+    ~~~~~~^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\main.py", line 137, in _start
+    MainApp().run()
+    ~~~~~~~~~~~~~^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\app.py", line 954, in run
+    runTouchApp()
+    ~~~~~~~~~~~^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\base.py", line 574, in runTouchApp
+    EventLoop.mainloop()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\base.py", line 339, in mainloop
+    self.idle()
+    ~~~~~~~~~^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\base.py", line 383, in idle
+    self.dispatch_input()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\base.py", line 334, in dispatch_input
+    post_dispatch_input(*pop(0))
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\base.py", line 263, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "kivy\\_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\core\window\__init__.py", line 1709, in on_motion
+    self.dispatch('on_touch_down', me)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "kivy\\_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\core\window\__init__.py", line 1726, in on_touch_down
+    if w.dispatch('on_touch_down', touch):
+       ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "kivy\\_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\uix\modalview.py", line 266, in on_touch_down
+    super().on_touch_down(touch)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\uix\widget.py", line 589, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "kivy\\_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\uix\widget.py", line 589, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "kivy\\_event.pyx", line 727, in kivy._event.EventDispatcher.dispatch
+  File "kivy\\_event.pyx", line 1307, in kivy._event.EventObservers.dispatch
+  File "kivy\\_event.pyx", line 1191, in kivy._event.EventObservers._dispatch
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\lang\builder.py", line 60, in custom_callback
+    exec(__kvlang__.co_value, idmap)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\content\page\Home\page.kv", line 126, in <module>
+    on_touch_down: root.date_touch_down(self, args[1])
+    ^^^^^^^^
+  File "kivy\\weakproxy.pyx", line 32, in kivy.weakproxy.WeakProxy.__getattr__
+AttributeError: 'ModalCreateProfile' object has no attribute 'date_touch_down'. Did you mean: 'on_touch_down'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\main.py", line 146, in <module>
+    _show_crash(_crash_text)
+    ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\main.py", line 43, in _show_crash
+    CrashApp().run()
+    ~~~~~~~~~~~~~~^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\app.py", line 954, in run
+    runTouchApp()
+    ~~~~~~~~~~~^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\base.py", line 574, in runTouchApp
+    EventLoop.mainloop()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\base.py", line 339, in mainloop
+    self.idle()
+    ~~~~~~~~~^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\base.py", line 383, in idle
+    self.dispatch_input()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\base.py", line 334, in dispatch_input
+    post_dispatch_input(*pop(0))
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\base.py", line 263, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "kivy\\_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\core\window\__init__.py", line 1713, in on_motion
+    self.dispatch('on_touch_up', me)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "kivy\\_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\core\window\__init__.py", line 1750, in on_touch_up
+    if w.dispatch('on_touch_up', touch):
+       ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "kivy\\_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\uix\modalview.py", line 281, in on_touch_up
+    super().on_touch_up(touch)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\uix\widget.py", line 611, in on_touch_up
+    if child.dispatch('on_touch_up', touch):
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "kivy\\_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\uix\widget.py", line 611, in on_touch_up
+    if child.dispatch('on_touch_up', touch):
+       ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "kivy\\_event.pyx", line 727, in kivy._event.EventDispatcher.dispatch
+  File "kivy\\_event.pyx", line 1307, in kivy._event.EventObservers.dispatch
+  File "kivy\\_event.pyx", line 1191, in kivy._event.EventObservers._dispatch
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\.venv\Lib\site-packages\kivy\lang\builder.py", line 60, in custom_callback
+    exec(__kvlang__.co_value, idmap)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FramworkCpp\MorisPython\JAGJAG-APP\content\page\Home\page.kv", line 127, in <module>
+    on_touch_up: root.date_touch_up(self, args[1])
+    ^^^^^^
+  File "kivy\\weakproxy.pyx", line 32, in kivy.weakproxy.WeakProxy.__getattr__
+AttributeError: 'ModalCreateProfile' object has no attribute 'date_touch_up'. Did you mean: 'on_touch_up'?

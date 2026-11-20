@@ -120,11 +120,11 @@
             MDTextFieldHintText:
                 text: "Nama"
 
-        # Tanggal lahir: read-only, dipilih lewat date picker
         MDTextField:
             id: tanggal
             readonly: True
-            on_focus: if self.focus: root.open_date_picker()
+            on_touch_down: root.date_touch_down(self, args[1])
+            on_touch_up: root.date_touch_up(self, args[1])
 
             MDTextFieldHintText:
                 text: "Tanggal lahir"
