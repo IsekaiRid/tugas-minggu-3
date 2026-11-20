@@ -48,17 +48,12 @@ def _start():
 
     from kivy.clock import Clock
     from kivy.core.window import Window
-    from kivy.properties import NumericProperty
     from kivy.utils import platform
     from kivymd.app import MDApp
 
     from content.page.Manager.page import Manager
-    from content.util.insets import get_system_insets
 
     class MainApp(MDApp):
-
-        inset_top = NumericProperty(0)
-        inset_bottom = NumericProperty(0)
 
         def __init__(self, **kwargs):
             super().__init__(**kwargs)
@@ -69,16 +64,9 @@ def _start():
 
         def build(self):
             self.theme_cls.theme_style = "Light"
-            self.update_insets()
-            Window.bind(size=self.update_insets)
             return Manager()
 
-        def update_insets(self, *args):
-            self.inset_top, self.inset_bottom = get_system_insets()
-
         def on_start(self):
-            Clock.schedule_once(self.update_insets, 0.5)
-
             if platform != "android":
                 Clock.schedule_once(
                     lambda dt: Clock.schedule_once(
@@ -140,8 +128,6 @@ def _start():
             return True
 
         def on_resume(self):
-            Clock.schedule_once(self.update_insets, 0.2)
-
             if platform == "android":
                 print("[APP] Application resumed.")
 
