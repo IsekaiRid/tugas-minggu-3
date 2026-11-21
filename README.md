@@ -4,7 +4,7 @@
 
 JAGJAG adalah aplikasi Android berbasis Python, Kivy, dan KivyMD untuk merekam rute GPS, melihat riwayat perjalanan di peta, menampilkan cuaca BMKG, mengelola profil, serta membuat jadwal pengingat makan.
 
-README ini menjelaskan struktur project, alur utama, cara menjalankan di desktop, cara membangun APK, dan cara melihat error di HP.
+README ini menjelaskan struktur project, alur utama, cara menjalankan versi PC, dan cara melihat error di HP.
 
 ## 👨‍💻 Tim Developer
 
@@ -62,6 +62,7 @@ Konfigurasi Android seperti nama paket, versi Python, dependensi, izin, arsitekt
 ```text
 .
 ├── main.py                         # Titik masuk aplikasi
+├── requirements.txt                # Daftar library untuk menjalankan di PC
 ├── buildozer.spec                  # Konfigurasi build APK
 ├── extra_manifest_application_arguments.xml
 ├── assets/                         # Ikon, font, dan gambar splash
@@ -186,60 +187,106 @@ Ikon pengaturan (roda gigi) membuka menu dengan dua pilihan:
 
 Data dalam `data/` repository adalah data lokal/contoh untuk pengembangan. Data aktif Android berada di sandbox privat aplikasi perangkat.
 
-## Menjalankan di desktop
+---
 
-Mode desktop berguna untuk mempelajari tampilan dan alur; lokasi disimulasikan. Alarm, izin Android, service latar belakang, sensor kompas, dan tombol Kirim di Check bug tidak tersedia di desktop.
+## 💻 Menjalankan Versi PC
 
-Contoh PowerShell dari root project (bila Python 3.12 sudah terpasang):
+Versi PC berguna untuk mencoba tampilan dan alur aplikasi tanpa HP. Lokasi GPS disimulasikan di sekitar Bandung.
+
+### Yang dibutuhkan
+
+- **Python 3.11 atau lebih baru.** Project ini sudah dijalankan di Python 3.13.
+- **Koneksi internet**, untuk cuaca BMKG dan tile peta.
+- **Git** (opsional, untuk mengunduh project dengan `git clone`).
+
+Saat memasang Python di Windows, centang **Add python.exe to PATH**. Cek dengan:
+
+```powershell
+python --version
+```
+
+### 1. Ambil project
+
+Dengan Git:
+
+```powershell
+git clone https://github.com/IsekaiRid/tugas-minggu-3.git
+cd tugas-minggu-3
+```
+
+Atau unduh ZIP dari GitHub (**Code → Download ZIP**), ekstrak, lalu buka foldernya. Pastikan kamu berada di folder yang berisi `main.py` dan `requirements.txt`. Jika project ada di dalam folder lagi, masuk ke folder itu dengan `cd`.
+
+### 2. Buat virtual environment
+
+Windows (PowerShell):
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
+```
+
+Linux / macOS:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+Jika berhasil, awal baris terminal berubah menjadi `(.venv)`.
+
+### 3. Pasang library
+
+```powershell
 python -m pip install --upgrade pip
-python -m pip install kivy==2.3.1 kivymd==2.0.0 kivy-garden.mapview requests pillow
+python -m pip install -r requirements.txt
+```
+
+Proses ini mengunduh Kivy, KivyMD, MapView, dan library pendukung. Tunggu sampai selesai tanpa pesan `ERROR`.
+
+### 4. Jalankan aplikasi
+
+```powershell
 python main.py
 ```
 
-Pilih Record untuk melihat jalur simulasi. Hentikan rekaman, lalu buka Map untuk melihat rute di riwayat. Jika PowerShell memblokir aktivasi, jalankan `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` pada jendela tersebut dan ulangi aktivasi. Bila instalasi Kivy gagal, periksa dukungan wheel untuk versi Python yang digunakan.
+Jendela aplikasi akan terbuka dengan ukuran layar HP (360 × 640) dan tidak bisa diubah ukurannya.
 
-## Membangun APK Android
+### Cara mencoba fitur
 
-Ada dua cara: Google Colab (paling mudah, tanpa Linux) atau Ubuntu/WSL2.
+1. **Buat Profil.** Saat pertama kali dibuka, formulir muncul otomatis. Isi nama, tanggal lahir (ketuk kolomnya untuk membuka kalender), berat, dan tinggi, lalu tekan **Simpan**.
+2. **Home.** Menampilkan cuaca sekarang dan prakiraan 24 jam. Tekan ikon refresh untuk memuat ulang.
+3. **Record.** Tekan mulai untuk melihat jalur simulasi berjalan di peta. Tekan stop untuk menyimpan rute. Rute yang terlalu pendek tidak disimpan.
+4. **Map.** Menampilkan riwayat rute yang sudah disimpan. Rute terbaru paling jelas.
+5. **Time.** Tambah jadwal pengingat makan. Alarm Android dilewati di PC, jadi hanya jadwalnya yang tersimpan.
+6. **Profile.** Tekan ikon roda gigi lalu pilih **Edit user** atau **Check bug**.
 
-### Pengaturan penting di `buildozer.spec`
+### Yang tidak tersedia di PC
 
-- **Versi Python dikunci** lewat `requirements`: `hostpython3==3.11.5,python3==3.11.5`. Keduanya harus sama, dan versi ini yang didukung Kivy 2.3.1.
-- **Dependensi `requests` ditulis lengkap**: `urllib3`, `idna`, `charset-normalizer`, dan `certifi`. python-for-android tidak memasang dependensi turunan secara otomatis, dan `kivy-garden.mapview` memakai `requests` saat di-import. Tanpa ini aplikasi tertutup tepat setelah splash.
-- **`android.api = 34`**. Mulai API 35, Android menggambar aplikasi sampai ke bawah status bar dan navigation bar, sehingga tata letak butuh perhitungan inset. Dengan API 34, sistem menyisakan ruang untuk bar itu sendiri.
-- **`p4a.branch`** dikunci ke satu tag python-for-android agar build bisa diulang.
-- Folder `platform-tools` dikecualikan dari APK lewat `source.exclude_dirs`.
+- Alarm Android dan notifikasi.
+- Izin lokasi dan GPS asli (koordinat disimulasikan).
+- Sensor kompas dan mode Heading-up.
+- Tombol **Kirim** di Check bug (tombol **Salin** tetap berfungsi).
 
-Setiap kali `requirements`, `android.api`, `android.ndk`, atau `p4a.*` berubah, hapus cache build lama (`buildozer android clean`) supaya perubahan terpakai.
+### Masalah yang sering terjadi
 
-### Cara 1: Google Colab
+| Masalah | Solusi |
+|---|---|
+| `python` tidak dikenali | Pasang Python dan centang **Add to PATH**, lalu buka terminal baru. Di Windows bisa juga memakai `py -m venv .venv`. |
+| Aktivasi venv diblokir PowerShell | Jalankan `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass`, lalu ulangi perintah aktivasi. |
+| `pip install` Kivy gagal | Periksa versi Python dengan `python --version`. Pakai 3.11 sampai 3.13, lalu buat ulang `.venv`. |
+| `ModuleNotFoundError` saat `python main.py` | Venv belum aktif atau library belum terpasang. Aktifkan `.venv`, lalu ulangi langkah 3. |
+| Jendela tidak muncul atau error OpenGL | Perbarui driver kartu grafis. Di Windows coba `$env:KIVY_GL_BACKEND="angle_sdl2"` sebelum `python main.py`. |
+| Peta kosong atau cuaca gagal dimuat | Periksa koneksi internet. Cuaca memakai cache bila pernah berhasil dimuat sebelumnya. |
+| Ingin memunculkan formulir Buat Profil lagi | Hapus file `data/profiles.json`, lalu jalankan ulang. |
+| Ada error yang tidak jelas | Lihat pesan di terminal, atau buka **Profile → roda gigi → Check bug**. Laporan tersimpan di `bug_reports.json` di folder project. |
 
-1. Push semua perubahan ke GitHub (script Colab memakai `git reset --hard origin/main`, jadi kode yang belum di-push tidak ikut terbangun).
-2. Jalankan script build di Colab. Script memasang Java 17 dan Buildozer, meng-clone repo, membersihkan cache bila pengaturan build berubah, lalu menjalankan `buildozer -v android debug`.
-3. Setelah selesai, APK di folder `bin/` otomatis diunduh.
+---
 
-### Cara 2: Ubuntu/WSL2
+## 📦 Membangun APK
 
-Buildozer digunakan di Linux/macOS. Pada Windows gunakan WSL2 + Ubuntu. Salin project ke filesystem Linux (misalnya `~/jagjag`), bukan membangun langsung dari `/mnt/c`; lihat [panduan instalasi resmi Buildozer](https://buildozer.readthedocs.io/en/latest/installation/).
+File dan panduan build APK (Google Colab) disertakan terpisah.
 
-```bash
-cp -r "/mnt/c/path/ke/project" ~/jagjag
-cd ~/jagjag
-
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install buildozer setuptools cython==0.29.36
-buildozer -v android debug
-```
-
-Pasang dependensi sistem dan Java 17 mengikuti panduan Buildozer. Build pertama mengunduh Android SDK/NDK dan komponen lain, sehingga dapat memerlukan beberapa GB ruang serta waktu. Terima lisensi SDK jika diminta. APK debug muncul di `bin/`. Salin APK ke HP lalu buka untuk memasang; Android mungkin meminta izin instalasi dari sumber tersebut. WSL tidak mengakses USB secara langsung, jadi untuk memakai ADB jalankan dari Windows.
-
-Sebelum memasang versi baru, hapus aplikasi lama di HP agar tidak ada sisa data atau cache.
+---
 
 ## 🐞 Melihat error di HP
 
@@ -254,6 +301,8 @@ Urutan dari yang paling mudah:
    adb logcat -s python AndroidRuntime
    ```
    Jalankan, buka aplikasi sampai error muncul, lalu salin hasilnya.
+
+---
 
 ## 📄 Lisensi
 
