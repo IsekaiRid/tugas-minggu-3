@@ -12,7 +12,7 @@ version = 0.1
 # Python dikunci ke 3.11.x (hostpython3 dan python3 harus versi yang sama).
 # urllib3, idna, charset-normalizer, certifi wajib ada karena dipakai requests
 # (dan requests dipakai kivy-garden.mapview saat import).
-requirements = hostpython3==3.11.5,python3==3.11.5,kivy==2.3.1,kivymd==2.0.0,materialyoucolor==3.0.3,materialshapes,asynckivy,asyncgui,exceptiongroup,pillow,kivy-garden.mapview,requests,urllib3,idna,charset-normalizer,certifi,pyjnius,android
+requirements = hostpython3==3.11.5,python3==3.11.5,kivy==2.3.1,kivymd==2.0.0,materialyoucolor==3.0.4,materialshapes,asynckivy,asyncgui,exceptiongroup,pillow,kivy-garden.mapview,requests,urllib3,idna,charset-normalizer,certifi,pyjnius,android
 
 # foreground + sticky: service dihidupkan ulang OS kalau di-kill
 services = tracker:content/service/tracker.py:foreground:sticky:foregroundServiceType=location
